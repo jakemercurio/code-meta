@@ -1,0 +1,30 @@
+{
+  "name": "code-meta",
+  "version": "1.0.0",
+  "description": "get meta information about your code by file",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jakemercurio/code-meta.git"
+  },
+  "keywords": [
+    "code",
+    "parser",
+    "meta",
+    "information",
+    "php",
+    "nodejs"
+  ],
+  "author": "jakemercurio",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/jakemercurio/code-meta/issues"
+  },
+  "homepage": "https://github.com/jakemercurio/code-meta#readme",
+  "devDependencies": {
+    "mocha": "^3.2.0"
+  }
+}
