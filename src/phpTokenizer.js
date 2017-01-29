@@ -1,8 +1,7 @@
 'use strict';
 
-var stream = require('stream');
-var Readable = require('stream').Readable;
-
+const stream = require('stream');
+const Readable = stream.Readable;
 
 class PhpTokenize {
 
@@ -15,11 +14,9 @@ class PhpTokenize {
     }
 
     tokenizeCode() {
-        this.tokens = this.code.replace(/([;,\(\)\{}])/g, function($0, $1) {
+        return this.code.replace(/([;,\(\)\{}])/g, function($0, $1) {
             return ' ' + $1 + ' ';
         }).split(/\s+/);
-
-        return this.tokens;
     }
 
     tokenizeStream() {
@@ -29,6 +26,8 @@ class PhpTokenize {
         tokenizeCode.forEach((token) => {
             tokenStream.push(token);
         });
+
+        tokenStream.push(null);
 
         return tokenStream;
     }
