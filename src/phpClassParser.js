@@ -7,22 +7,20 @@ class PhpClassParser {
         this.readableStream = readableStream;
         this.classMeta = classMeta;
 
-        this.isParsingClassName = false;
+        this.isParsingDeclaration = false;
         this.isParsingInterface = false;
 
-        this._parseClassName(readableStream);
+        this._parseClassDeclaration(readableStream);
     }
 
-    _parseClassName(readableStream) {
+    _parseClassDeclaration(readableStream) {
 
         let previousToken = '';
 
         readableStream.on('data', (chunk) => {
             let currentToken = chunk.toString();
 
-            this._determineIfParsing(currentToken);
-
-            if (this.isParsingClassName) {
+            if (this._isParsingDeclaration(currentToken)) {
                 this._parsePreviousToken(previousToken, currentToken);
             }
 
@@ -30,14 +28,15 @@ class PhpClassParser {
         });
     }
 
-    _determineIfParsing(currentToken) {
+    _isParsingDeclaration(currentToken) {
 
         if (currentToken === 'class') {
-            this.isParsingClassName = true;
-        } else if (this.isParsingClassName && currentToken === '{') {
-            this.isParsingClassName = false;
+            this.isParsingDeclaration = true;
+        } else if (this.isParsingDeclaration && currentToken === '{') {
+            this.isParsingDeclaration = false;
         }
 
+        return this.isParsingDeclaration;
     }
 
     _parsePreviousToken(previousToken, currentToken) {
