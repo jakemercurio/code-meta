@@ -26,4 +26,22 @@ describe('phpTokenizer', function() {
         assert.equal('object', typeof tokens);
         assert.equal(21, tokens.length);
     });
+
+    it ('should return a stream', function(){
+        const tokenizer = new PhpTokenizer(testCode);
+        let data = [];
+        let stream = tokenizer.tokenizeStream();
+
+        assert('readable', typeof stream);
+
+        stream.on('data', (chunk) => {
+            data.push(chunk.toString());
+        });
+
+        stream.on('end', () => {
+            assert.equal(21, data.length);
+            assert.equal(tokenizer.tokenizeCode(), data);
+        });
+
+    });
 });

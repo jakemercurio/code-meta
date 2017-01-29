@@ -1,5 +1,9 @@
 'use strict';
 
+var stream = require('stream');
+var Readable = require('stream').Readable;
+
+
 class PhpTokenize {
 
     constructor(code) {
@@ -16,6 +20,17 @@ class PhpTokenize {
         }).split(/\s+/);
 
         return this.tokens;
+    }
+
+    tokenizeStream() {
+        let tokenStream = new Readable();
+        let tokenizeCode = this.tokenizeCode() || [];
+
+        tokenizeCode.forEach((token) => {
+            tokenStream.push(token);
+        });
+
+        return tokenStream;
     }
 
 }
