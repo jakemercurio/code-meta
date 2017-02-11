@@ -31,14 +31,14 @@ class PhpClassParser {
             }
 
             if (this.isParsingClassBody) {
-                let property = this.variableParser.parseVariable(previousToken, currentToken);
-
-                if (property) {
-                    this.classMeta.properties.push(property);
-                }
+                this.variableParser.parseVariable(previousToken, currentToken);
             }
 
             previousToken = currentToken;
+        });
+
+        readableStream.on('end', () => {
+            this.classMeta.properties = this.variableParser.getVariables();
         });
     }
 

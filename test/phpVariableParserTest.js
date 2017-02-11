@@ -20,21 +20,16 @@ describe('PhpVariableParser', () => {
             assert(typeof parser.parseVariable === 'function');
         });
 
-        it ('should parse a variable declared with var', () => {
+        it('should parse a variable declared with var', () => {
 
             let previousToken = null;
-            let parsedVariable = null;
 
-            ['extra-code','var', '$test1','=','[]',';','extra-code'].forEach((currentToken) => {
-                let possibleVariable = parser.parseVariable(previousToken, currentToken);
-
-                if (possibleVariable) {
-                    parsedVariable = possibleVariable;
-                }
-
+            ['extra-code', 'var', '$test1', '=', '[]', ';', 'extra-code'].forEach((currentToken) => {
+                parser.parseVariable(previousToken, currentToken);
                 previousToken = currentToken;
             });
 
+            let parsedVariable = parser.getVariables()[0];
 
             assert.equal(typeof parsedVariable, 'object');
             assert.equal(parsedVariable.name, '$test1');
@@ -42,21 +37,16 @@ describe('PhpVariableParser', () => {
             assert.equal(parsedVariable.scope, 'public');
         });
 
-        it ('should parse a variable declared with public', () => {
+        it('should parse a variable declared with public', () => {
 
             let previousToken = null;
-            let parsedVariable = null;
 
-            ['extra-code','public', '$testVar','=','[]',';','extra-code'].forEach((currentToken) => {
-                let possibleVariable = parser.parseVariable(previousToken, currentToken);
-
-                if (possibleVariable) {
-                    parsedVariable = possibleVariable;
-                }
-
+            ['extra-code', 'public', '$testVar', '=', '[]', ';', 'extra-code'].forEach((currentToken) => {
+                parser.parseVariable(previousToken, currentToken);
                 previousToken = currentToken;
             });
 
+            let parsedVariable = parser.getVariables()[0];
 
             assert.equal(typeof parsedVariable, 'object');
             assert.equal(parsedVariable.name, '$testVar');
@@ -64,21 +54,16 @@ describe('PhpVariableParser', () => {
             assert.equal(parsedVariable.scope, 'public');
         });
 
-        it ('should parse a variable declared with protected', () => {
+        it('should parse a variable declared with protected', () => {
 
             let previousToken = null;
-            let parsedVariable = null;
 
-            ['extra-code','protected', '$testProtected','=','test string',';','extra-code'].forEach((currentToken) => {
-                let possibleVariable = parser.parseVariable(previousToken, currentToken);
-
-                if (possibleVariable) {
-                    parsedVariable = possibleVariable;
-                }
-
+            ['extra-code', 'protected', '$testProtected', '=', 'test string', ';', 'extra-code'].forEach((currentToken) => {
+                parser.parseVariable(previousToken, currentToken);
                 previousToken = currentToken;
             });
 
+            let parsedVariable = parser.getVariables()[0];
 
             assert.equal(typeof parsedVariable, 'object');
             assert.equal(parsedVariable.name, '$testProtected');
@@ -86,21 +71,16 @@ describe('PhpVariableParser', () => {
             assert.equal(parsedVariable.scope, 'protected');
         });
 
-        it ('should parse a variable declared with private', () => {
+        it('should parse a variable declared with private', () => {
 
             let previousToken = null;
-            let parsedVariable = null;
 
-            ['extra-code','private', '$testPrivate','=','192',';','extra-code'].forEach((currentToken) => {
-                let possibleVariable = parser.parseVariable(previousToken, currentToken);
-
-                if (possibleVariable) {
-                    parsedVariable = possibleVariable;
-                }
-
+            ['extra-code', 'private', '$testPrivate', '=', '192', ';', 'extra-code'].forEach((currentToken) => {
+                parser.parseVariable(previousToken, currentToken);
                 previousToken = currentToken;
             });
 
+            let parsedVariable = parser.getVariables()[0];
 
             assert.equal(typeof parsedVariable, 'object');
             assert.equal(parsedVariable.name, '$testPrivate');
@@ -109,7 +89,5 @@ describe('PhpVariableParser', () => {
         });
 
     });
-
-
 
 });

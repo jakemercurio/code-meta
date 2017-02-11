@@ -5,6 +5,7 @@ const variableMeta = require('../src/variableMeta');
 
 class PhpVariableParser {
     constructor() {
+        this.variables = [];
         this.variableMeta = variableMeta;
         this.isParsingProperty = false;
     }
@@ -27,14 +28,17 @@ class PhpVariableParser {
                 if (this.isParsingProperty) {
                     this.variableMeta.value = currentToken;
                     this.isParsingProperty = false;
-
-                    return this.variableMeta;
                 }
                 break;
             case ';':
+                this.variables.push(this.variableMeta);
                 this.variableMeta = variableMeta;
         }
 
+    }
+
+    getVariables() {
+        return this.variables || [];
     }
 
 }

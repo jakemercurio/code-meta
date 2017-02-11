@@ -29,7 +29,7 @@ describe('phpTokenizer', () => {
         assert.equal(tokens.length, numberOfTokens);
     });
 
-    it ('should return a stream', (done) =>{
+    it('should return a stream', (done) => {
         const tokenizer = new PhpTokenizer(testCode);
         let data = [];
         let stream = tokenizer.tokenizeStream();
@@ -52,7 +52,7 @@ describe('phpTokenizer', () => {
 
     });
 
-    it ('should be able to handle multiple streams', (done) =>{
+    it('should be able to handle multiple streams', (done) => {
 
         const tokenizer = new PhpTokenizer(testCode);
         let data = [];
