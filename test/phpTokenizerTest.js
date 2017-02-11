@@ -1,23 +1,23 @@
 const assert = require('assert');
 
 const PhpTokenizer = require('../src/phpTokenizer');
-const testCode = '<? class test { public function __constructor(string test, int number){ return true; } } ?>';
-const numberOfTokens = 21;
+const testCode = "<? class test { public function __constructor(string test = 'test value', int number){ return true; } } ?>";
+const numberOfTokens = 23;
 
 
 describe('phpTokenizer', () => {
     it('should be defined', () => {
-        assert(typeof PhpTokenizer === 'function');
+        assert.equal(typeof PhpTokenizer, 'function');
     });
 
     it('should save first argument to this.code', () => {
         const tokenizer = new PhpTokenizer(testCode);
-        assert.equal(testCode, tokenizer.code);
+        assert.equal(tokenizer.code, testCode);
     });
 
     it('should return raw code from getRawCode', () => {
         const tokenizer = new PhpTokenizer(testCode);
-        assert.equal(testCode, tokenizer.getRawCode());
+        assert.equal(tokenizer.getRawCode(), testCode);
     });
 
     it('should parse and return tokens', () => {
@@ -25,8 +25,8 @@ describe('phpTokenizer', () => {
         let tokens = tokenizer.tokenizeCode();
 
         assert(tokens);
-        assert.equal('object', typeof tokens);
-        assert.equal(numberOfTokens, tokens.length);
+        assert.equal(typeof tokens, 'object');
+        assert.equal(tokens.length, numberOfTokens);
     });
 
     it ('should return a stream', (done) =>{
