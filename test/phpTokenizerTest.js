@@ -2,7 +2,7 @@ const assert = require('assert');
 
 const PhpTokenizer = require('../src/phpTokenizer');
 const testCode = '<? class test { public function __constructor(string test, int number){ return true; } } ?>';
-const TestStream = require('./testStream');
+const numberOfTokens = 21;
 
 
 describe('phpTokenizer', () => {
@@ -26,7 +26,7 @@ describe('phpTokenizer', () => {
 
         assert(tokens);
         assert.equal('object', typeof tokens);
-        assert.equal(21, tokens.length);
+        assert.equal(numberOfTokens, tokens.length);
     });
 
     it ('should return a stream', (done) =>{
@@ -44,7 +44,7 @@ describe('phpTokenizer', () => {
 
             const expectedArray = tokenizer.tokenizeCode();
 
-            assert.equal(21, data.length);
+            assert.equal(numberOfTokens, data.length);
             assert.equal(expectedArray.length, data.length);
             assert.deepEqual(expectedArray, data);
             done();
@@ -73,8 +73,8 @@ describe('phpTokenizer', () => {
 
             const expectedArray = tokenizer.tokenizeCode();
 
-            assert.equal(21, data.length);
-            assert.equal(21, data2.length);
+            assert.equal(numberOfTokens, data.length);
+            assert.equal(numberOfTokens, data2.length);
 
             assert.equal(expectedArray.length, data.length);
             assert.equal(expectedArray.length, data2.length);
