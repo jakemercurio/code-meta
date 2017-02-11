@@ -4,8 +4,8 @@ const classMeta = require('./classMeta');
 const PhpVariableParser = require('./phpVariableParser');
 
 class PhpClassParser {
-    constructor(readableStream) {
-        this.readableStream = readableStream;
+
+    constructor() {
         this.classMeta = classMeta;
         this.variableParser = new PhpVariableParser();
 
@@ -13,33 +13,25 @@ class PhpClassParser {
         this.isParsingInterface = false;
         this.isParsingClassBody = false;
         this.nestingDepth = 0;
-
-        this._parseClass(readableStream);
     }
 
-    _parseClass(readableStream) {
+    parseClass(previousToken, currentToken) {
 
-        let previousToken = '';
+        this._determineSectionOfClass(currentToken);
 
-        readableStream.on('data', (chunk) => {
-            let currentToken = chunk.toString();
+        if (this.isParsingDeclaration) {
+            this._parseClassDeclaration(previousToken, currentToken);
+        }
 
-            this._determineSectionOfClass(currentToken);
+        if (this.isParsingClassBody) {
+            this.variableParser.parseVariable(previousToken, currentToken);
+        }
+    }
 
-            if (this.isParsingDeclaration) {
-                this._parseClassDeclaration(previousToken, currentToken);
-            }
+    getClass() {
+        this.classMeta.properties = this.variableParser.getVariables();
 
-            if (this.isParsingClassBody) {
-                this.variableParser.parseVariable(previousToken, currentToken);
-            }
-
-            previousToken = currentToken;
-        });
-
-        readableStream.on('end', () => {
-            this.classMeta.properties = this.variableParser.getVariables();
-        });
+        return this.classMeta;
     }
 
     _determineSectionOfClass(currentToken) {
