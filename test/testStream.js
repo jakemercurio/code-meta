@@ -21,7 +21,7 @@ class TestStream {
             ',',
             'TestInterface2',
             '{',
-            'pubic',
+            'public',
             '$var1',
             '=',
             '1',
@@ -38,6 +38,35 @@ class TestStream {
             ';',
             '}',
             '}'
+        ].forEach((token)=>{
+            readable.push(token);
+        });
+
+        readable.push(null);
+
+        return readable;
+    }
+
+    static classDeclaration() {
+
+        let readable = new Readable();
+
+        [
+            '<?',
+            'class',
+            'TestClass',
+            'extends',
+            'ParentClass',
+            'implements',
+            'TestInterface1',
+            ',',
+            'TestInterface2',
+            '{',
+            'public',
+            '$var1',
+            '=',
+            '1',
+            ';'
         ].forEach((token)=>{
             readable.push(token);
         });

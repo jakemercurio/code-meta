@@ -1,46 +1,68 @@
 'use strict';
 
-const classMeta = require('../src/classMeta');
+const classMeta = require('./classMeta');
+const PhpVariableParser = require('./phpVariableParser');
 
 class PhpClassParser {
     constructor(readableStream) {
         this.readableStream = readableStream;
         this.classMeta = classMeta;
+        this.variableParser = new PhpVariableParser();
 
         this.isParsingDeclaration = false;
         this.isParsingInterface = false;
+        this.isParsingClassBody = false;
+        this.nestingDepth = 0;
 
-        this._parseClassDeclaration(readableStream);
+        this._parseClass(readableStream);
     }
 
-    _parseClassDeclaration(readableStream) {
+    _parseClass(readableStream) {
 
         let previousToken = '';
 
         readableStream.on('data', (chunk) => {
             let currentToken = chunk.toString();
 
-            if (this._isParsingDeclaration(currentToken)) {
-                this._parsePreviousToken(previousToken, currentToken);
+            this._determineSectionOfClass(currentToken);
+
+            if (this.isParsingDeclaration) {
+                this._parseClassDeclaration(previousToken, currentToken);
+            }
+
+            if (this.isParsingClassBody) {
+                let property = this.variableParser.parseVariable(previousToken, currentToken);
+
+                if (property) {
+                    this.classMeta.properties.push(property);
+                }
             }
 
             previousToken = currentToken;
         });
     }
 
-    _isParsingDeclaration(currentToken) {
+    _determineSectionOfClass(currentToken) {
 
         if (currentToken === 'class') {
             this.isParsingDeclaration = true;
         } else if (this.isParsingDeclaration && currentToken === '{') {
             this.isParsingDeclaration = false;
+            this.isParsingClassBody = true;
+        } else if (this.isParsingClassBody && currentToken === '{') {
+            this.nestingDepth++;
+        } else if (this.isParsingClassBody && currentToken === '}') {
+            this.nestingDepth--;
         }
 
-        return this.isParsingDeclaration;
+        if (this.isParsingClassBody && this.nestingDepth === -1) {
+            this.isParsingClassBody = false;
+            this.nestingDepth = 0;
+        }
     }
 
-    _parsePreviousToken(previousToken, currentToken) {
-        switch(previousToken) {
+    _parseClassDeclaration(previousToken, currentToken) {
+        switch (previousToken) {
             case 'abstract':
                 this.classMeta.isAbstract = true;
                 break;
@@ -60,7 +82,6 @@ class PhpClassParser {
                 }
         }
     }
-
 
 }
 

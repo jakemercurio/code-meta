@@ -16,16 +16,42 @@ describe('PhpClassParser', () => {
         assert.equal('object', typeof parser.readableStream);
     });
 
-    it('should parse one classMeta object', () => {
+    it('should detect when a class is being parsed', (done) => {
 
-        const parser = new PhpClassParser(TestStream.classTokens());
+        const stream = TestStream.classDeclaration();
+        const parser = new PhpClassParser(stream);
 
-        assert.equal('object', typeof parser.classMeta);
-        assert.equal('TestClass', parser.classMeta.name);
-        assert.equal('ParentClass', parser.classMeta.parent);
-        assert.equal('TestInterface1', parser.classMeta.interfaces[0]);
-        assert.equal('TestInterface2', parser.classMeta.interfaces[1]);
-        assert.equal(true, parser.classMeta.isAbstract);
+        stream.on('end', () => {
+            assert.equal(parser.nestingDepth, 0);
+            assert.equal(parser.isParsingClassBody, true);
+            done();
+        });
+
+    });
+
+    it('should parse one classMeta object', (done) => {
+
+        const stream = TestStream.classTokens();
+        const parser = new PhpClassParser(stream);
+
+        stream.on('end', () => {
+            assert.equal(typeof parser.classMeta, 'object');
+
+            assert.equal(parser.classMeta.name, 'TestClass');
+            assert.equal(parser.classMeta.parent, 'ParentClass');
+            assert.equal(parser.classMeta.interfaces[0], 'TestInterface1');
+            assert.equal(parser.classMeta.interfaces[1], 'TestInterface2');
+            assert.equal(true, parser.classMeta.isAbstract);
+
+            const firstProperty = parser.classMeta.properties[0];
+            assert.equal(typeof firstProperty, 'object');
+            assert.equal(firstProperty.name, '$var1');
+            assert.equal(firstProperty.value, 1);
+
+            done();
+        });
+
+
 
     });
 

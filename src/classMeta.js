@@ -6,7 +6,7 @@ let classMeta = {
     interfaces: [],
     isAbstract: false,
     functions: null,
-    properties: null
+    properties: []
 };
 
 module.exports = classMeta;
