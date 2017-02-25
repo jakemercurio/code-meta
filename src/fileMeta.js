@@ -2,8 +2,8 @@
 
 let fileMeta = {
     name: null,
-    namespace: null,
     path: null,
+    namespace: null,
     lines: 0,
     classes: [],
     imports: [],
