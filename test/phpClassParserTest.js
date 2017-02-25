@@ -35,17 +35,17 @@ const testCode = [
 
 describe('PhpClassParser', () => {
 
+    let parser;
+
+    beforeEach(() => {
+        parser = new PhpClassParser();
+    });
+
     it('should be defined', () => {
         assert(typeof PhpClassParser === 'function');
     });
 
-    describe('', () => {
-
-        let parser;
-
-        before(() => {
-            parser = new PhpClassParser();
-        });
+    describe('parseClass', () => {
 
         it('should detect when a class is being parsed', () => {
 
@@ -85,6 +85,25 @@ describe('PhpClassParser', () => {
             assert.equal(firstProperty.name, '$var1');
             assert.equal(firstProperty.value, 1);
 
+        });
+
+    });
+
+    describe('getClasses', () => {
+
+        it('should return array of classes', () => {
+            let previousToken = null;
+
+            testCode.forEach((currentToken) => {
+                parser.parseClass(previousToken, currentToken);
+                previousToken = currentToken;
+            });
+
+            let classesMeta = parser.getClasses();
+
+            assert.equal(classesMeta.length, 1);
+            assert.equal(typeof classesMeta[0], 'object');
+            assert.equal(classesMeta[0], parser.classMeta);
         });
 
     });

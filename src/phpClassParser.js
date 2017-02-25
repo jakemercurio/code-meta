@@ -6,6 +6,7 @@ const PhpVariableParser = require('./phpVariableParser');
 class PhpClassParser {
 
     constructor() {
+        this.classes = [];
         this.classMeta = classMeta;
         this.variableParser = new PhpVariableParser();
 
@@ -34,6 +35,10 @@ class PhpClassParser {
         return this.classMeta;
     }
 
+    getClasses() {
+        return this.classes;
+    }
+
     _determineSectionOfClass(currentToken) {
 
         if (currentToken === 'class') {
@@ -49,6 +54,8 @@ class PhpClassParser {
 
         if (this.isParsingClassBody && this.nestingDepth === -1) {
             this.isParsingClassBody = false;
+            this.classes.push(this.getClass());
+            this.classMeta = classMeta;
             this.nestingDepth = 0;
         }
     }
