@@ -23,8 +23,9 @@ class PhpTokenize {
 
         let isParsingString = false;
         let stringDelimiter = null;
+        let codeLength = this.code && this.code.length;
 
-        for (let i = 0; i < this.code.length; i++) {
+        for (let i = 0; i < codeLength; i++) {
 
             let currentChar = this.code[i];
 

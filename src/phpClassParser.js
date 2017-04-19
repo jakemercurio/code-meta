@@ -1,5 +1,7 @@
 'use strict';
 
+const clone = require('clone');
+
 const classMeta = require('./classMeta');
 const PhpVariableParser = require('./phpVariableParser');
 
@@ -7,7 +9,7 @@ class PhpClassParser {
 
     constructor() {
         this.classes = [];
-        this.classMeta = classMeta;
+        this.classMeta = clone(classMeta);
         this.variableParser = new PhpVariableParser();
 
         this.isParsingDeclaration = false;

@@ -1,13 +1,16 @@
 'use strict';
-
+const clone = require('clone');
 const fileMeta = require('./fileMeta');
 const PhpClassParser = require('./phpClassParser');
 
 class PhpFileParser {
 
-    constructor() {
-        this.fileMeta = fileMeta;
+    constructor(fileName, path) {
+        this.fileMeta = clone(fileMeta);
         this.phpClassParser = new PhpClassParser();
+
+        this.fileMeta.name = fileName;
+        this.fileMeta.path = path;
     }
 
     setName(name) {
