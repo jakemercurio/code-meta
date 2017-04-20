@@ -2,7 +2,7 @@
 
 const clone = require('clone');
 
-const classMeta = require('./classMeta');
+const classMeta = require('./../classMeta');
 const PhpVariableParser = require('./phpVariableParser');
 
 class PhpClassParser {

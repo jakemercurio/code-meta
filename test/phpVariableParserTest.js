@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const PhpVariableParser = require('../src/PhpVariableParser');
+const PhpVariableParser = require('../src/php/phpVariableParser');
 
 describe('PhpVariableParser', () => {
 

@@ -1,8 +1,9 @@
 const fs = require('fs');
+
 const fileSystem = require('file-system');
 const json2csv = require('json2csv');
 
-const fileReader = require('./src/fileReader');
+const fileReader = require('./../src/fileReader');
 
 const providedFilePath = process.argv[2] || '';
 const csvFields = [

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const PhpFileParser = require('../src/PhpFileParser');
+const PhpFileParser = require('../src/php/phpFileParser');
 
 const testCode = [
     '<?',

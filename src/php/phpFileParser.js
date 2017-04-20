@@ -1,6 +1,6 @@
 'use strict';
 const clone = require('clone');
-const fileMeta = require('./fileMeta');
+const fileMeta = require('./../fileMeta');
 const PhpClassParser = require('./phpClassParser');
 
 class PhpFileParser {

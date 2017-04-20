@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const PhpClassParser = require('../src/PhpClassParser');
+const PhpClassParser = require('../src/php/phpClassParser');
 
 const testCode = [
     '<?',

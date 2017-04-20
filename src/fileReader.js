@@ -1,7 +1,7 @@
 const fs = require('fs');
 
-const PhpTokenizer = require('./phpTokenizer');
-const PhpFileParser = require('./phpFileParser');
+const PhpTokenizer = require('./php/phpTokenizer');
+const PhpFileParser = require('./php/phpFileParser');
 
 class FileReader {
 

@@ -1,6 +1,6 @@
 const assert = require('assert');
 
-const PhpTokenizer = require('../src/phpTokenizer');
+const PhpTokenizer = require('../src/php/phpTokenizer');
 const testCode = "<? class test { public function __constructor(string test = 'test value', int number){ return true; } } ?>";
 const numberOfTokens = 23;
 

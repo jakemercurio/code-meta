@@ -1,7 +1,7 @@
 'use strict';
 
-const classMeta = require('../src/classMeta');
-const variableMeta = require('../src/variableMeta');
+const classMeta = require('../classMeta');
+const variableMeta = require('../variableMeta');
 
 class PhpVariableParser {
     constructor() {
