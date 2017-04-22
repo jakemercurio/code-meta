@@ -86,6 +86,25 @@ describe('PhpVariableParser', () => {
             assert.equal(parsedVariable.name, '$testPrivate');
             assert.equal(parsedVariable.value, '192');
             assert.equal(parsedVariable.scope, 'private');
+            assert.equal(parsedVariable.isStatic, false);
+        });
+
+        it('should parse a variable declared static', () => {
+
+            let previousToken = null;
+
+            ['extra-code', 'private', 'static', '$testStatic', '=', '192', ';', 'extra-code'].forEach((currentToken) => {
+                parser.parseVariable(previousToken, currentToken);
+                previousToken = currentToken;
+            });
+
+            let parsedVariable = parser.getVariables()[0];
+
+            assert.equal(typeof parsedVariable, 'object');
+            assert.equal(parsedVariable.name, '$testStatic');
+            assert.equal(parsedVariable.value, '192');
+            assert.equal(parsedVariable.scope, 'private');
+            assert.equal(parsedVariable.isStatic, true);
         });
 
     });

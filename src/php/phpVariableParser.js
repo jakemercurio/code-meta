@@ -20,8 +20,14 @@ class PhpVariableParser {
                 if (currentToken !== 'function') {
                     this.isParsingProperty = true;
                     this.variableMeta.name = currentToken;
-
                     this.variableMeta.scope = previousToken === 'var' ? 'public' : previousToken;
+                }
+                break;
+            case 'static':
+                if (this.isParsingProperty) {
+                    this.variableMeta.isStatic = true;
+                    this.variableMeta.name = currentToken;
+                    break;
                 }
                 break;
             case '=':
