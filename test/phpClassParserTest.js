@@ -103,7 +103,7 @@ describe('PhpClassParser', () => {
 
             assert.equal(classesMeta.length, 1);
             assert.equal(typeof classesMeta[0], 'object');
-            assert.equal(classesMeta[0], parser.classMeta);
+            assert.equal(classesMeta[0], parser.classes[0]);
         });
 
     });

@@ -32,9 +32,7 @@ class PhpClassParser {
     }
 
     getClass() {
-        this.classMeta.properties = this.variableParser.getVariables();
-
-        return this.classMeta;
+        return this.classes.pop()
     }
 
     getClasses() {
@@ -56,8 +54,9 @@ class PhpClassParser {
 
         if (this.isParsingClassBody && this.nestingDepth === -1) {
             this.isParsingClassBody = false;
-            this.classes.push(this.getClass());
-            this.classMeta = classMeta;
+            this.classMeta.properties = this.variableParser.getVariables();
+            this.classes.push(this.classMeta);
+            this.classMeta = clone(classMeta);
             this.nestingDepth = 0;
         }
     }
