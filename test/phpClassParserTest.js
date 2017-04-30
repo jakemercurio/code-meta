@@ -87,6 +87,19 @@ describe('PhpClassParser', () => {
 
         });
 
+        it('should not parse anonymous classes', () => {
+
+            let previousToken = null;
+
+            ['$var','new','class','(',')','{','}'].forEach((currentToken) => {
+                parser.parseClass(previousToken, currentToken);
+                previousToken = currentToken;
+            });
+
+            assert.equal(parser.getClasses().length, 0);
+
+        });
+
     });
 
     describe('getClasses', () => {

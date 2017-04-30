@@ -22,7 +22,7 @@ class PhpClassParser {
 
     parseClass(previousToken, currentToken) {
 
-        this._determineSectionOfClass(currentToken);
+        this._determineSectionOfClass(previousToken, currentToken);
 
         if (this.isParsingDeclaration) {
             this._parseClassDeclaration(previousToken, currentToken);
@@ -42,9 +42,9 @@ class PhpClassParser {
         return this.classes;
     }
 
-    _determineSectionOfClass(currentToken) {
+    _determineSectionOfClass(previousToken, currentToken) {
 
-        if (currentToken === 'class') {
+        if (currentToken === 'class' && previousToken !== 'new') {
             this.isParsingDeclaration = true;
         } else if (this.isParsingDeclaration && currentToken === '{') {
             this.isParsingDeclaration = false;
