@@ -5,7 +5,7 @@ let classMeta = {
     parent: null,
     interfaces: [],
     isAbstract: false,
-    functions: null,
+    functions: [],
     properties: []
 };
 

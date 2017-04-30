@@ -6,9 +6,13 @@ const Readable = stream.Readable;
 class PhpTokenize {
 
     constructor(code) {
-        this.code = code;
+        this.code = PhpTokenize._removeComments(code);
         this.tokens = [];
         this.currentToken = '';
+    }
+
+    static _removeComments(code) {
+        return code.replace(/\/\/.*\n|\/\*.*\*\//gm, '');
     }
 
     getRawCode() {
