@@ -12,7 +12,7 @@ describe('PhpVariableParser', () => {
 
         let parser = null;
 
-        before(() => {
+        beforeEach(() => {
             parser = new PhpVariableParser();
         });
 

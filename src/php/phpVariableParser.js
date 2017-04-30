@@ -1,12 +1,14 @@
 'use strict';
 
+const clone = require('clone');
+
 const classMeta = require('../classMeta');
 const variableMeta = require('../variableMeta');
 
 class PhpVariableParser {
     constructor() {
         this.variables = [];
-        this.variableMeta = variableMeta;
+        this.variableMeta = clone(variableMeta);
         this.isParsingProperty = false;
     }
 
@@ -38,7 +40,7 @@ class PhpVariableParser {
                 break;
             case ';':
                 this.variables.push(this.variableMeta);
-                this.variableMeta = variableMeta;
+                this.variableMeta = clone(variableMeta);
         }
 
     }
