@@ -71,7 +71,9 @@ class PhpClassParser {
                 this.classMeta.isAbstract = true;
                 break;
             case 'class':
-                this.classMeta.name = currentToken;
+                if (this.isParsingDeclaration) {
+                    this.classMeta.name = currentToken;
+                }
                 break;
             case 'extends':
                 this.classMeta.parent = currentToken;

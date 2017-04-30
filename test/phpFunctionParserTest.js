@@ -64,12 +64,12 @@ describe('PhpFunctionParser', () => {
 
             let previousToken = null;
 
-            testCode.slice(0, 19).forEach((currentToken) => {
+            testCode.slice(0, 20).forEach((currentToken) => {
                 parser.parseFunctions(previousToken, currentToken);
                 previousToken = currentToken;
             });
 
-            assert.equal(parser.nestingDepth, 1);
+            assert.equal(parser.nestingDepth, 0);
             assert.equal(parser.isParsingFunction, true);
 
         });

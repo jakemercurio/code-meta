@@ -10,10 +10,6 @@
 ".git/hooks/pre-push-phinx.php",106,"PhinxGitPrePushHook",11
 "Lib/Mvc/MvcStartup.php",19,"MvcStartup",3
 "Lib/ThirdParty/CreditCardGenerator.php",60,"CreditCardGenerator",6
-"MicroServices/Billboard/Billboard.php",107,"Billboard",28
-"MicroServices/Billboard/BillboardProvider.php",4,,
-"MicroServices/Billboard/BillboardService.php",122,"BillboardService",12
-"MicroServices/Billboard/BillboardTrait.php",7,,
 "MicroServices/Client/ApiClient.php",143,"ApiClient",12
 "MicroServices/Client/ApiClientConfiguration.php",26,"ApiClientConfiguration",6
 "MicroServices/Client/ApiClientResponse.php",23,"ApiClientResponse",5

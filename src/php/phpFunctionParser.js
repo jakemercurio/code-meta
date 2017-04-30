@@ -30,6 +30,13 @@ class PhpFunctionParser {
         if (this.isParsingFunctionBody) {
             this._parseFunctionBody(currentToken);
         }
+
+        if (this.isParsingFunction && this.nestingDepth === -1) {
+            this.isParsingFunctionBody = false;
+            this.nestingDepth = 0;
+            this.functions.push(this.functionMeta);
+            this.functionMeta = clone(functionMeta);
+        }
     }
 
     _determineSectionOfClass(currentToken) {
@@ -67,13 +74,6 @@ class PhpFunctionParser {
                 if (this.isParsingFunction && this.isParsingFunctionBody) {
                     this.nestingDepth--;
                 }
-        }
-
-        if (this.isParsingFunction && this.nestingDepth === -1) {
-            this.isParsingFunctionBody = false;
-            this.nestingDepth = 0;
-            this.functions.push(this.functionMeta);
-            this.functionMeta = clone(functionMeta);
         }
     }
 
