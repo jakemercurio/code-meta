@@ -11,6 +11,7 @@ const csvFields = [
     'path',
     'lines',
     'classes[0].name',
+    'classes[0].functions.length',
 ];
 
 const parseFilePath = (filePath, callback) => {

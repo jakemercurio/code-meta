@@ -51,22 +51,27 @@ class PhpFunctionParser {
                 }
                 break;
             case '{':
+
                 if (this.isParsingFunctionDeclaration) {
                     this.isParsingFunctionDeclaration = false;
                     this.isParsingFunctionBody = true;
+                    break;
                 }
-                if (this.isParsingFunction && this.isParsingFunction) {
+
+                if (this.isParsingFunction && this.isParsingFunctionBody) {
                     this.nestingDepth++;
                 }
+
                 break;
             case '}':
-                if (this.isParsingFunction && this.isParsingFunction) {
+                if (this.isParsingFunction && this.isParsingFunctionBody) {
                     this.nestingDepth--;
                 }
         }
 
         if (this.isParsingFunction && this.nestingDepth === -1) {
             this.isParsingFunctionBody = false;
+            this.nestingDepth = 0;
             this.functions.push(this.functionMeta);
             this.functionMeta = clone(functionMeta);
         }
