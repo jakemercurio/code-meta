@@ -12,7 +12,7 @@ class PhpTokenize {
     }
 
     static _removeComments(code) {
-        return code.replace(/\/\/.*\n|\/\*.*\*\//gm, '');
+        return code.replace(/(\/\*[\w\W]*?\*\/)|(\/\/[\w\W]*?\n)|(<!--[\W\w]*?-->)/gm, '');
     }
 
     getRawCode() {
